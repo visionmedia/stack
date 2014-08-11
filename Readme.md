@@ -20,7 +20,7 @@ n 0.11.13
 
 ## Installation
 
- With go-get:
+ Via go-get:
 
 ```
 $ go get github.com/visionmedia/stack
@@ -52,7 +52,7 @@ soonnnnn
 
  There are a lot of great provisioning tools out there, but as far as
  I know most of them are part of much larger systems, use unfamiliar DSLs,
- or rely on the precense of an interpreter for scripting languages such as Ruby or Python.
+ or rely on the presence of an interpreter for scripting languages such as Ruby or Python.
 
  I'm not suggesting this tool is better than any existing solution but I really wanted
  something that looked and behaved like a regular shell script. Also since it's written in Go it's very simple to curl the binary on to any existing system.
@@ -63,7 +63,11 @@ soonnnnn
 
 ## How it works
 
- A commit log is held at ~/.provision.log (by default), this file keeps
+ Unlike shell scripts stack(1) will exit if a command fails, and unlike
+ shell scripts a commit log is used in order to prevent re-execution of
+ previous commands.
+
+ The log is held at ~/.provision.log (by default), this file keeps
  track of commands which have already completed. Once a command is run
  and successfully exits, it is considered complete, at which time the
  SHA1 of the command is written to this file. Subsequent runs will see
@@ -80,6 +84,39 @@ soonnnnn
  the second time around:
 
  ![stack commits](https://dl.dropboxusercontent.com/u/6396913/stack/provision-commits.gif)
+
+## Syntax
+
+ The syntax has two flavours, the shell-like syntax, and the canonical version which pkg/provisioner consumes. For example here is the shell version of a small node.js provisioning script:
+
+```sh
+# Node
+curl -L# http://nodejs.org/dist/v0.10.30/node-v0.10.30-darwin-x64.tar.gz | tar -zx --strip 1 -C /usr/local
+
+# Node version manager
+npm install -g n
+
+# Node releases
+n 0.8.28
+n 0.10.30
+n 0.11.13
+```
+
+ Here's the same script after it's rewritten to the canonical syntax:
+
+```sh
+
+LOG Node
+RUN curl -L# http://nodejs.org/dist/v0.10.30/node-v0.10.30-darwin-x64.tar.gz | tar -zx --strip 1 -C /usr/local
+
+LOG Node version manager
+RUN npm install -g n
+
+LOG Node releases
+RUN n 0.8.28
+RUN n 0.10.30
+RUN n 0.11.13
+```
 
 ## Commands
 
