@@ -1,0 +1,11 @@
+
+LOG Node
+RUN curl -L# http://nodejs.org/dist/v0.10.30/node-v0.10.30-darwin-x64.tar.gz | tar -zx --strip 1 -C /usr/local
+
+LOG Node version manager
+RUN npm install -g n
+
+LOG Node releases
+RUN n 0.8.28
+RUN n 0.10.30
+RUN n 0.11.13
