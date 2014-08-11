@@ -5,6 +5,19 @@
 
  ![golang provisioning tool stack](https://dl.dropboxusercontent.com/u/6396913/stack/provision.gif)
 
+```sh
+# Node
+curl -L# http://nodejs.org/dist/v0.10.30/node-v0.10.30-darwin-x64.tar.gz | tar -zx --strip 1 -C /usr/local
+
+# Node version manager
+npm install -g n
+
+# Node releases
+n 0.8.28
+n 0.10.30
+n 0.11.13
+```
+
 ## Installation
 
  With go-get:
