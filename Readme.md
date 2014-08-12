@@ -1,7 +1,7 @@
 
 # Stack
 
- Tiny provisioning tool written in Go.
+ Minimalist provisioning tool written in Go.
 
  ![golang provisioning tool stack](https://dl.dropboxusercontent.com/u/6396913/stack/provision.gif)
 
