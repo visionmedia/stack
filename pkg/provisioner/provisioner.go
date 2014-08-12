@@ -57,7 +57,6 @@ func (p *Provisioner) Run() error {
 
 	for {
 		line, err := buf.ReadString('\n')
-		line = strings.Trim(line, " \r\n")
 
 		if err == io.EOF {
 			err = p.process(line)
@@ -80,24 +79,16 @@ func (p *Provisioner) Run() error {
 
 // process the given `line`.
 func (p *Provisioner) process(line string) error {
-	if "" == line {
+	line = strings.Trim(line, " \r\n")
+
+	if line == "" {
 		return nil
-	}
-
-	if isComment(line) {
-		line = "LOG " + strings.Replace(line, "# ", "", 1)
-	}
-
-	if !strings.HasPrefix(line, "RUN ") && !strings.HasPrefix(line, "LOG ") {
-		line = "RUN " + line
 	}
 
 	cmd, arg, err := parse(line)
 	if err != nil {
 		return err
 	}
-
-	cmd = strings.ToLower(cmd)
 
 	hash := sha1.Sum([]byte(line))
 	commit := hex.EncodeToString(hash[:])
@@ -107,7 +98,7 @@ func (p *Provisioner) process(line string) error {
 
 // Command runs the given `arg` against `cmd`.
 func (p *Provisioner) Command(cmd, arg, commit string) error {
-	switch cmd {
+	switch strings.ToLower(cmd) {
 	case "run":
 		return p.CommandRun(arg, commit)
 	case "log":
@@ -154,11 +145,6 @@ func (p *Provisioner) CommandRun(arg, commit string) error {
 func (p *Provisioner) CommandLog(arg, commit string) error {
 	p.Log.Log(arg)
 	return nil
-}
-
-// isComment checks if `line` is a comment.
-func isComment(line string) bool {
-	return len(line) > 0 && line[0] == '#'
 }
 
 // parse and arguments from `line`.
