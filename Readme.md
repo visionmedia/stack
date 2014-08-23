@@ -63,9 +63,8 @@ soonnnnn
 
 ## How it works
 
- Unlike shell scripts stack(1) will exit if a command fails, and unlike
- shell scripts a commit log is used in order to prevent re-execution of
- previous commands.
+ Stack behaves like shell scripts with `set -e`, as it will exit on failure. Unlike
+ shell scripts a commit log is used in order to prevent re-execution of previous commands.
 
  The log is held at ~/.provision.log (by default), this file keeps
  track of commands which have already completed. Once a command is run
