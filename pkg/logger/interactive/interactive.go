@@ -7,6 +7,7 @@ import "github.com/visionmedia/go-spin"
 import "time"
 import "fmt"
 import "io"
+import "os"
 
 type Logger struct {
 	start time.Time
@@ -66,6 +67,16 @@ func (l *Logger) Log(line string) {
 // Log end of provisioning.
 func (l *Logger) End() {
 	fmt.Fprintf(l.w, "\033[32m   completed\033[0m in %s\n", time.Since(l.start))
+}
+
+// Stdout implementation.
+func (l *Logger) Stdout() io.Writer {
+	return os.Stdout
+}
+
+// Stderr implementation.
+func (l *Logger) Stderr() io.Writer {
+	return os.Stderr
 }
 
 // return shortened hash.

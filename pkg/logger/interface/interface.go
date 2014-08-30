@@ -1,5 +1,7 @@
 package logger_interface
 
+import "io"
+
 type Logger interface {
 	// Skip a commit.
 	Skip(arg, commit string)
@@ -18,4 +20,10 @@ type Logger interface {
 
 	// End of provision.
 	End()
+
+	// Stdout writer.
+	Stdout() io.Writer
+
+	// Stderr writer.
+	Stderr() io.Writer
 }

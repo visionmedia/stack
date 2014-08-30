@@ -126,8 +126,8 @@ func (p *Provisioner) CommandRun(arg, commit string) error {
 	c.Stdin = os.Stdin
 
 	if p.Verbose {
-		c.Stderr = os.Stderr
-		c.Stdout = os.Stdout
+		c.Stdout = p.Log.Stdout()
+		c.Stderr = p.Log.Stderr()
 	}
 
 	err := c.Run()
