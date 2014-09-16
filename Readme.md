@@ -23,7 +23,7 @@ n 0.11.13
  Via go-get:
 
 ```
-$ go get github.com/visionmedia/stack
+$ go get github.com/visionmedia/stack/cmd/stack
 ```
 
  Via binaries:
