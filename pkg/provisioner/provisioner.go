@@ -4,18 +4,20 @@
 //
 package provisioner
 
-import "github.com/visionmedia/stack/pkg/logger/interface"
-import "github.com/visionmedia/stack/pkg/commit-log"
-import "github.com/visionmedia/stack/pkg/rewriter"
-import "encoding/hex"
-import "crypto/sha1"
-import "strings"
-import "os/exec"
-import "bytes"
-import "bufio"
-import "fmt"
-import "os"
-import "io"
+import (
+	"github.com/visionmedia/stack/pkg/logger/interface"
+	"github.com/visionmedia/stack/pkg/commit-log"
+	"github.com/visionmedia/stack/pkg/rewriter"
+	"encoding/hex"
+	"crypto/sha1"
+	"strings"
+	"os/exec"
+	"bytes"
+	"bufio"
+	"fmt"
+	"os"
+	"io"
+)
 
 const Version = "0.0.1"
 
